@@ -156,6 +156,7 @@ confirmUploadConfig() {
     },
 ```
 另外，如果你觉得原来自定义远程配置5000字符串的限制不够，现在你可以直接加个0了：
+
 将
 ```javascript
 <el-form label-position="left">
