@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 $userText = $_POST['config'];
 function mk_dir()
 {
-    $dir = date('md/H/i', time());
+    $dir = 'subconverter/' . date('Y/m/md', time());
     if (is_dir('./' . $dir)) {
         return $dir;
     } else {
