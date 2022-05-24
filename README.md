@@ -155,3 +155,32 @@ confirmUploadConfig() {
         });
     },
 ```
+另外，如果你觉得原来自定义远程配置5000字符串的限制不够，现在你可以直接加个0了：
+将
+```javascript
+<el-form label-position="left">
+        <el-form-item prop="uploadConfig">
+          <el-input
+            v-model="uploadConfig"
+            type="textarea"
+            :autosize="{ minRows: 15, maxRows: 15}"
+            maxlength="5000"
+            show-word-limit
+          ></el-input>
+        </el-form-item>
+      </el-form>
+```
+改为：
+```javascript
+<el-form label-position="left">
+        <el-form-item prop="uploadConfig">
+          <el-input
+            v-model="uploadConfig"
+            type="textarea"
+            :autosize="{ minRows: 15, maxRows: 150}"
+            maxlength="50000"
+            show-word-limit
+          ></el-input>
+        </el-form-item>
+      </el-form>
+```
