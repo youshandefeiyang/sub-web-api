@@ -1,7 +1,7 @@
 # sub-web极简远程配置后端
 [本项目](https://github.com/youshandefeiyang/sub-web-config-backend)是为了方便自有服务器的朋友搭建远程配置后端托管服务，并且你的自定义配置可以永久保存在你自己的服务器上，小白建议搭配[youshandefeiyang/sub-web-modify](https://github.com/youshandefeiyang/sub-web-modify)使用，当然你也可以单独使用POST来获取后端返回的链接，以下是配置教程：<br/>
 ## 食用方法【以nginx为例】：
-1.需要安装nginx并正确配置，以下为nginx server部分配置，可以参考一下（这块建议小白使用宝塔面板等自动化运维工具）！
+1.需要安装`nginx`并正确配置，以下为`nginx server块`配置，可以参考一下（这块建议小白使用宝塔面板等自动化运维工具）！
 ```shell
 server
 {
@@ -69,12 +69,12 @@ $arr = array('code' => 0,'msg'=>"success" ,'data' => "https://subapi.v1.mk$path"
 echo json_encode($arr, 320);
 ?>
 ```
-3.然后你需要在/src/views/Subconverter.vue中修改默认远程配置后端：
+3.然后你需要在`/src/views/Subconverter.vue`中修改默认远程配置后端：
 ```diff
 - const configUploadBackend = process.env.VUE_APP_CONFIG_UPLOAD_BACKEND + '/config/upload'
 + const configUploadBackend = 'https://subapi.v1.mk/sub.php' #替换你的域名
 ```
-4.特别的，如果你使用的是[CareyWang/sub-web](https://github.com/CareyWang/sub-web)原版前端，而不是我的改版前端，你还需要在/src/views/Subconverter.vue中做一些修改：
+4.特别的，如果你使用的是[CareyWang/sub-web](https://github.com/CareyWang/sub-web)原版前端，而不是我的改版前端，你还需要在`/src/views/Subconverter.vue`中做一些修改：
 ```diff
 confirmUploadConfig() {
       if (this.uploadConfig === "") {
@@ -114,7 +114,7 @@ confirmUploadConfig() {
         });
     },
 ```
-另外，如果你觉得原来自定义远程配置5000字符串的限制不够，现在你可以直接加个0了：
+另外，如果你觉得原来自定义远程配置`5000`字符串的限制不够，现在你可以直接加个`0`了：
 ```diff
 <el-form label-position="left">
         <el-form-item prop="uploadConfig">
