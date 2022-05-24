@@ -1,10 +1,7 @@
 # sub-web极简远程配置后端
 [本项目](https://github.com/youshandefeiyang/sub-web-config-backend)是为了方便自有服务器的朋友搭建远程配置后端托管服务，小白建议搭配[youshandefeiyang/sub-web-modify](https://github.com/youshandefeiyang/sub-web-modify)使用，当然你也可以单独使用POST来获取后端返回的链接，以下是配置教程：<br/>
-## 效果预览：
-![avatar](https://cdn.jsdelivr.net/gh/limr95/webcdn@3.8/dfy.gif)
-## 食用方法【以Linux为例】：
+## 食用方法【以nginx为例】：
 1.需要安装nginx并正确配置，以下为nginx server部分配置，可以参考一下（这块建议小白使用宝塔面板等自动化运维工具）！
-
 ```shell
 server
 {
