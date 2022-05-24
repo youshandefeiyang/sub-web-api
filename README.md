@@ -6,7 +6,7 @@
 server
 {
     listen 80;
-	listen 443 ssl http2; #前端如果开启了https，后端也必须开
+    listen 443 ssl http2; #前端如果开启了https，后端也必须开
     server_name subapi.v1.mk; #替换你的域名
     index index.php index.html index.htm default.php default.htm default.html;
     root /www/wwwroot/subapi.v1.mk;
@@ -69,7 +69,11 @@ $arr = array('code' => 0,'msg'=>"success" ,'data' => "https://subapi.v1.mk$path"
 echo json_encode($arr, 320);
 ?>
 ```
-3.然后你需要在/src/views/Subconverter.vue中修改默认远程配置后端
+3.然后你需要在/src/views/Subconverter.vue中修改默认远程配置后端：
+将
+`const configUploadBackend = process.env.VUE_APP_CONFIG_UPLOAD_BACKEND + '/config/upload'`
+改为：
+`const configUploadBackend = 'https://subapi.v1.mk/sub.php' #替换你的域名` 
 4.特别的，如果你使用的是[CareyWang/sub-web](https://github.com/CareyWang/sub-web)原版前端，而不是我的改版前端，你还需要在/src/views/Subconverter.vue中做一些修改：
 将
 ```javascript
