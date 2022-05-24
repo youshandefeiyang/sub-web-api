@@ -75,9 +75,7 @@ echo json_encode($arr, 320);
 + const configUploadBackend = 'https://subapi.v1.mk/sub.php' #替换你的域名
 ```
 4.特别的，如果你使用的是[CareyWang/sub-web](https://github.com/CareyWang/sub-web)原版前端，而不是我的改版前端，你还需要在/src/views/Subconverter.vue中做一些修改：
-
-将
-```javascript
+```diff
 confirmUploadConfig() {
       if (this.uploadConfig === "") {
         this.$message.warning("远程配置不能为空");
@@ -85,7 +83,7 @@ confirmUploadConfig() {
       }
       this.loading = true;
       let data = new FormData();
-      data.append("password", this.uploadPassword);
+-     data.append("password", this.uploadPassword);
       data.append("config", this.uploadConfig);
       this.$axios
         .post(configUploadBackend, data, {
@@ -94,49 +92,14 @@ confirmUploadConfig() {
           }
         })
         .then(res => {
-          if (res.data.code === 0 && res.data.data.url !== "") {
+-         if (res.data.code === 0 && res.data.data.url !== "") {
++         if (res.data.code === 0 && res.data.data !== "") {
             this.$message.success(
               "远程配置上传成功，配置链接已复制到剪贴板，有效期三个月望知悉"
             );
             // 自动填充至『表单-远程配置』
-            this.form.remoteConfig = res.data.data.url;
-            this.$copyText(this.form.remoteConfig);
-            this.dialogUploadConfigVisible = false;
-          } else {
-            this.$message.error("远程配置上传失败: " + res.data.msg);
-          }
-        })
-        .catch(() => {
-          this.$message.error("远程配置上传失败");
-        })
-        .finally(() => {
-          this.loading = false;
-        });
-    },
-```
-改为：
-```javascript
-confirmUploadConfig() {
-      if (this.uploadConfig === "") {
-        this.$message.warning("远程配置不能为空");
-        return false;
-      }
-      this.loading = true;
-      let data = new FormData();
-      data.append("config", this.uploadConfig);
-      this.$axios
-        .post(configUploadBackend, data, {
-          header: {
-            "Content-Type": "application/form-data; charset=utf-8"
-          }
-        })
-        .then(res => {
-          if (res.data.code === 0 && res.data.data !== "") {
-            this.$message.success(
-              "远程配置上传成功，配置链接已复制到剪贴板"
-            );
-            // 自动填充至『表单-远程配置』
-            this.form.remoteConfig = res.data.data;
+-           this.form.remoteConfig = res.data.data.url;
++           this.form.remoteConfig = res.data.data;
             this.$copyText(this.form.remoteConfig);
             this.dialogUploadConfigVisible = false;
           } else {
@@ -152,30 +115,16 @@ confirmUploadConfig() {
     },
 ```
 另外，如果你觉得原来自定义远程配置5000字符串的限制不够，现在你可以直接加个0了：
-
-将
-```javascript
+```diff
 <el-form label-position="left">
         <el-form-item prop="uploadConfig">
           <el-input
             v-model="uploadConfig"
             type="textarea"
-            :autosize="{ minRows: 15, maxRows: 15}"
-            maxlength="5000"
-            show-word-limit
-          ></el-input>
-        </el-form-item>
-      </el-form>
-```
-改为：
-```javascript
-<el-form label-position="left">
-        <el-form-item prop="uploadConfig">
-          <el-input
-            v-model="uploadConfig"
-            type="textarea"
-            :autosize="{ minRows: 15, maxRows: 150}"
-            maxlength="50000"
+-           :autosize="{ minRows: 15, maxRows: 15}"
++           :autosize="{ minRows: 15, maxRows: 150}"
+-           maxlength="5000"
++           maxlength="50000"
             show-word-limit
           ></el-input>
         </el-form-item>
