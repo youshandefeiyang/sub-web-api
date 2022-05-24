@@ -3,19 +3,30 @@
 ## 效果预览：
 ![avatar](https://cdn.jsdelivr.net/gh/limr95/webcdn@3.8/dfy.gif)
 ## 食用方法【以Linux为例】：
-1.安装 [node](https://blog.csdn.net/achabuhecha/article/details/111400068) 和 [yarn](https://classic.yarnpkg.com/en/docs/install#debian-stable) 和 [git](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git)
-
-2.终端执行 `cd /home && git clone https://github.com/youshandefeiyang/sub-web-modify.git && chmod -R 755 sub-web-modify && cd sub-web-modify && yarn install && yarn build`
-
-3.build成功后，需要安装nginx并正确配置，以下为nginx server部分配置，可以参考一下【这块建议新手使用宝塔面板等自动化运维工具，直接将网站目录更改为/home/sub-web-modify/dist即可】！
+1.需要安装nginx并正确配置，以下为nginx server部分配置，可以参考一下（这块建议小白使用宝塔面板等自动化运维工具）！
 
 ```shell
-server {
+server
+{
     listen 80;
-    server_name 你的域名或IP;
-    root /home/sub-web-modify/dist;
-    index index.html index.htm;
-    error_page 404 /index.html;
+	listen 443 ssl http2; #前端如果开启了https，后端也必须开
+    server_name subapi.v1.mk; #替换你的域名
+    index index.php index.html index.htm default.php default.htm default.html;
+    root /www/wwwroot/subapi.v1.mk;
+    add_header 'Access-Control-Allow-Origin' "*"; #开启跨域，很重要
+    add_header 'Access-Control-Allow-Credentials' "true"; #开启跨域，很重要
+    if ($server_port !~ 443){
+        rewrite ^(/.*)$ https://$host$1 permanent;
+    }
+    ssl_certificate    /xxx/fullchain.pem; #证书位置
+    ssl_certificate_key    /xxx/privkey.pem; #证书位置
+    ssl_protocols TLSv1.1 TLSv1.2 TLSv1.3;
+    ssl_ciphers EECDH+CHACHA20:EECDH+CHACHA20-draft:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5;
+    ssl_prefer_server_ciphers on;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;
+    add_header Strict-Transport-Security "max-age=31536000";
+    error_page 497  https://$host$request_uri;
     gzip on; #开启gzip压缩
     gzip_min_length 1k; #设置对数据启用压缩的最少字节数
     gzip_buffers 4 16k;
@@ -29,6 +40,113 @@ server {
     }
 }
 ```
-
-4.如需进一步修改前端，请在/home/sub-web-modify下执行 `yarn serve` 进行调试即可
-
+2.以下为PHP部分：
+```php
+<?php
+header('Content-Type: application/json');
+$userText = $_POST['config'];
+function mk_dir()
+{
+    $dir = date('md/H/i', time());
+    if (is_dir('./' . $dir)) {
+        return $dir;
+    } else {
+        mkdir('./' . $dir, 0777, true);
+        return $dir;
+    }
+}
+function randName()
+{
+    $str = 'abcdefghijkmnpqrstwxyz23456789';
+    return substr(str_shuffle($str), 0, 6);
+}
+$path = '/' . mk_dir() . '/' . randName() . '.' . 'ini';
+function writeText($str, $fileName)
+{
+    $userFile = fopen($fileName, "w+");
+    fwrite($userFile, $str);
+    fclose($userFile);
+}
+writeText($userText, "./" . $path);
+$arr = array('code' => 0,'msg'=>"success" ,'data' => "https://subapi.v1.mk$path"); #替换为你的域名即可，注意域名和$之间不要有空格
+echo json_encode($arr, 320);
+?>
+```
+3.然后你需要在/src/views/Subconverter.vue中修改默认远程配置后端
+4.特别的，如果你使用的是[CareyWang/sub-web](https://github.com/CareyWang/sub-web)原版前端，而不是我的改版前端，你还需要在/src/views/Subconverter.vue中做一些修改：
+将
+```javascript
+confirmUploadConfig() {
+      if (this.uploadConfig === "") {
+        this.$message.warning("远程配置不能为空");
+        return false;
+      }
+      this.loading = true;
+      let data = new FormData();
+      data.append("password", this.uploadPassword);
+      data.append("config", this.uploadConfig);
+      this.$axios
+        .post(configUploadBackend, data, {
+          header: {
+            "Content-Type": "application/form-data; charset=utf-8"
+          }
+        })
+        .then(res => {
+          if (res.data.code === 0 && res.data.data.url !== "") {
+            this.$message.success(
+              "远程配置上传成功，配置链接已复制到剪贴板，有效期三个月望知悉"
+            );
+            // 自动填充至『表单-远程配置』
+            this.form.remoteConfig = res.data.data.url;
+            this.$copyText(this.form.remoteConfig);
+            this.dialogUploadConfigVisible = false;
+          } else {
+            this.$message.error("远程配置上传失败: " + res.data.msg);
+          }
+        })
+        .catch(() => {
+          this.$message.error("远程配置上传失败");
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+```
+改为：
+```javascript
+confirmUploadConfig() {
+      if (this.uploadConfig === "") {
+        this.$message.warning("远程配置不能为空");
+        return false;
+      }
+      this.loading = true;
+      let data = new FormData();
+      data.append("password", this.uploadPassword);
+      data.append("config", this.uploadConfig);
+      this.$axios
+        .post(configUploadBackend, data, {
+          header: {
+            "Content-Type": "application/form-data; charset=utf-8"
+          }
+        })
+        .then(res => {
+          if (res.data.code === 0 && res.data.data !== "") {
+            this.$message.success(
+              "远程配置上传成功，配置链接已复制到剪贴板"
+            );
+            // 自动填充至『表单-远程配置』
+            this.form.remoteConfig = res.data.data;
+            this.$copyText(this.form.remoteConfig);
+            this.dialogUploadConfigVisible = false;
+          } else {
+            this.$message.error("远程配置上传失败: " + res.data.msg);
+          }
+        })
+        .catch(() => {
+          this.$message.error("远程配置上传失败");
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+```
