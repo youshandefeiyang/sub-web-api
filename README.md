@@ -69,7 +69,7 @@ if (empty($userText)) {
         fwrite($userFile, $str);
         fclose($userFile);
     }
-    writeText($userText, "./" . $path);
+    writeText($userText, "." . $path);
     $arr = array('code' => 0, 'msg' => "success", 'data' => "https://subapi.v1.mk$path");
     echo json_encode($arr, 320);
 }
