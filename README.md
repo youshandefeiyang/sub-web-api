@@ -13,7 +13,7 @@ server
     add_header 'Access-Control-Allow-Origin' "*"; #开启跨域，很重要
     add_header 'Access-Control-Allow-Credentials' "true"; #开启跨域，很重要
     location ~* php {
-    if ($request_method != POST ) {
+    if ($request_method != POST) {
         return 405;
       }
     } #当访问路径包含关键字‘php’时，如果请求方法非POST，在服务端直接返回405
@@ -47,31 +47,37 @@ server
 <?php
 header('Content-Type: application/json');
 $userText = $_POST['config'];
-function mk_dir()
-{
-    $dir = 'subconverter/' . date('md/H/i', time());
-    if (is_dir('./' . $dir)) {
-        return $dir;
-    } else {
-        mkdir('./' . $dir, 0777, true);
-        return $dir;
+if (empty($userText)) {
+    $arr = array('msg' => "failed", 'data' => "empty value");
+    echo json_encode($arr, 320);
+    exit();
+} else {
+    function mk_dir()
+    {
+        $dir = 'subconverter/' . date('Y/m/md', time());
+        if (is_dir('./' . $dir)) {
+            return $dir;
+        } else {
+            mkdir('./' . $dir, 0777, true);
+            return $dir;
+        }
     }
+    function randName()
+    {
+        $str = 'abcdefghijkmnpqrstwxyz23456789';
+        return substr(str_shuffle($str), 0, 6);
+    }
+    $path = '/' . mk_dir() . '/' . randName() . '.' . 'ini';
+    function writeText($str, $fileName)
+    {
+        $userFile = fopen($fileName, "w+");
+        fwrite($userFile, $str);
+        fclose($userFile);
+    }
+    writeText($userText, "./" . $path);
+    $arr = array('code' => 0, 'msg' => "success", 'data' => "https://subapi.v1.mk$path");
+    echo json_encode($arr, 320);
 }
-function randName()
-{
-    $str = 'abcdefghijkmnpqrstwxyz23456789';
-    return substr(str_shuffle($str), 0, 6);
-}
-$path = '/' . mk_dir() . '/' . randName() . '.' . 'ini';
-function writeText($str, $fileName)
-{
-    $userFile = fopen($fileName, "w+");
-    fwrite($userFile, $str);
-    fclose($userFile);
-}
-writeText($userText, "./" . $path);
-$arr = array('code' => 0,'msg'=>"success" ,'data' => "https://subapi.v1.mk$path"); #替换为你的域名即可，注意域名和$之间不要有空格
-echo json_encode($arr, 320);
 ?>
 ```
 3.然后你需要在`/src/views/Subconverter.vue`中修改默认远程配置后端：
