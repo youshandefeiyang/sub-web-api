@@ -10,13 +10,8 @@ server
     server_name subapi.v1.mk; #替换你的域名
     index index.php index.html index.htm default.php default.htm default.html;
     root /www/wwwroot/subapi.v1.mk;
-    add_header 'Access-Control-Allow-Origin' "*"; #开启跨域，很重要
-    add_header 'Access-Control-Allow-Credentials' "true"; #开启跨域，很重要
-    location ~* php {
-    if ($request_method != POST) {
-        return 405;
-      }
-    } #当访问路径包含关键字‘php’时，如果请求方法非POST，在服务端直接返回405
+    add_header 'Access-Control-Allow-Origin' "*"; #解除跨域，很重要
+    add_header 'Access-Control-Allow-Credentials' "true"; #解除跨域，很重要
     if ($server_port !~ 443){
         rewrite ^(/.*)$ https://$host$1 permanent;
     }
