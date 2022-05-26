@@ -29,7 +29,7 @@ if (empty($userText)) {
         fclose($userFile);
     }
     writeText($userText, "." . $path);
-    $arr = array('code' => 0, 'msg' => "success", 'data' => "https://subapi.v1.mk$path");
+    $arr = array('code' => 0, 'msg' => "success", 'data' => "https://sub-web-config-backend.vercel.app/api$path");
     echo json_encode($arr, 320);
 }
 ?>
