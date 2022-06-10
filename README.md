@@ -73,7 +73,6 @@ if (empty($userText)) {
     $arr = array('code' => 0, 'msg' => "success", 'data' => "https://subapi.v1.mk$path");
     echo json_encode($arr, 320);
 }
-?>
 ```
 3.然后你需要在`/src/views/Subconverter.vue`中修改默认远程配置后端：
 ```diff
