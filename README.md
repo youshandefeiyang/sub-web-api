@@ -12,7 +12,7 @@ server
     index index.php index.html index.htm default.php default.htm default.html;
     root /www/wwwroot/subapi.v1.mk;
     add_header 'Access-Control-Allow-Origin' "*"; #解除跨域，很重要
-    add_header 'Access-Control-Allow-Credentials' "true"; #解除跨域，很重要
+    add_header 'Access-Control-Allow-Credentials' "true"; #允许跨域使用cookies
     if ($server_port !~ 443){
         rewrite ^(/.*)$ https://$host$1 permanent;
     }
