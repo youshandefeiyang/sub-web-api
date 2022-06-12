@@ -78,7 +78,8 @@ confirmUploadConfig() {
       this.loading = true;
       let data = new FormData();
 -     data.append("password", this.uploadPassword);
-      data.append("config", this.uploadConfig);
+-     data.append("config", this.uploadConfig);
++     data.append("config", encodeURIComponent(this.uploadConfig));
       this.$axios
         .post(configUploadBackend, data, {
           header: {
