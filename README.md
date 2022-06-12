@@ -41,7 +41,7 @@ server
 ```php
 <?php
 header('Content-Type: application/json');
-$userText = $_POST['config'];
+$userText = $_POST['config'] ?? null;
 if (empty($userText)) {
     $arr = array('msg' => "failed", 'data' => "empty value");
     echo json_encode($arr, 320);
