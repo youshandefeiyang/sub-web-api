@@ -17,7 +17,7 @@ if (empty($userText)) {
         }
     }
     $path = '/' . mk_dir() . '/' . md5($userText) . '.' . 'ini';
-    file_put_contents(".$path",$userText);
+    file_put_contents(".$path", $userText);
     $arr = array('code' => 0, 'msg' => "success", 'data' => "https://subapi.v1.mk$path");
     echo json_encode($arr, 320);
 }
