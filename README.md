@@ -8,7 +8,7 @@ server
     listen 80;
     listen 443 ssl http2; #前端如果开启了https，后端也必须开
     server_name subapi.v1.mk; #替换你的域名
-    charset utf-8;
+    charset utf-8; #防止浏览器显示中文乱码
     index index.php index.html index.htm default.php default.htm default.html;
     root /www/wwwroot/subapi.v1.mk;
     add_header 'Access-Control-Allow-Origin' "*"; #解除跨域，很重要
