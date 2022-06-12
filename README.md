@@ -71,6 +71,10 @@ if (empty($userText)) {
 ```
 4.特别的，如果你使用的是[CareyWang/sub-web](https://github.com/CareyWang/sub-web)原版前端，而不是我的改版前端，你还需要在`/src/views/Subconverter.vue`中做一些修改：
 ```diff
+- const configUploadBackend = process.env.VUE_APP_CONFIG_UPLOAD_BACKEND + '/config/upload'
++ const configUploadBackend = process.env.VUE_APP_CONFIG_UPLOAD_BACKEND
+```
+```diff
 confirmUploadConfig() {
       if (this.uploadConfig === "") {
         this.$message.warning("远程配置不能为空");
