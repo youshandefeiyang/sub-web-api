@@ -21,13 +21,7 @@ if (empty($userText)) {
         return md5($userText);
     }
     $path = '/' . mk_dir() . '/' . randName($userText) . '.' . 'ini';
-    function writeText($str, $fileName)
-    {
-        $userFile = fopen($fileName, "w+");
-        fwrite($userFile, $str);
-        fclose($userFile);
-    }
-    writeText($userText, "." . $path);
+    file_put_contents(".$path",$userText);
     $arr = array('code' => 0, 'msg' => "success", 'data' => "https://subapi.v1.mk$path");
     echo json_encode($arr, 320);
 }
