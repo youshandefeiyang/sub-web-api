@@ -16,11 +16,7 @@ if (empty($userText)) {
             return $dir;
         }
     }
-    function randName($userText)
-    {
-        return md5($userText);
-    }
-    $path = '/' . mk_dir() . '/' . randName($userText) . '.' . 'ini';
+    $path = '/' . mk_dir() . '/' . md5($userText) . '.' . 'ini';
     file_put_contents(".$path",$userText);
     $arr = array('code' => 0, 'msg' => "success", 'data' => "https://subapi.v1.mk$path");
     echo json_encode($arr, 320);
