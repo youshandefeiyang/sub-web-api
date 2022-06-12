@@ -16,12 +16,11 @@ if (empty($userText)) {
             return $dir;
         }
     }
-    function randName()
+    function randName($userText)
     {
-        $str = 'abcdefghijkmnpqrstwxyz23456789';
-        return substr(str_shuffle($str), 0, 6);
+        return md5($userText);
     }
-    $path = '/' . mk_dir() . '/' . randName() . '.' . 'ini';
+    $path = '/' . mk_dir() . '/' . randName($userText) . '.' . 'ini';
     function writeText($str, $fileName)
     {
         $userFile = fopen($fileName, "w+");
