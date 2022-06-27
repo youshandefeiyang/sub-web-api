@@ -7,7 +7,7 @@ server
 {
     listen 80;
     listen 443 ssl http2; #前端如果开启了https，后端也必须开
-    server_name subapi.v1.mk; #替换你的域名
+    server_name xxx.xxx.xxx; #替换你的域名
     charset utf-8; #防止浏览器显示中文乱码
     index index.php index.html index.htm default.php default.htm default.html;
     root /www/wwwroot/subapi.v1.mk;
@@ -147,11 +147,50 @@ EOD;
 ```diff
 - VUE_APP_CONFIG_UPLOAD_BACKEND = "https://subapi.v1.mk/sub.php"
 + VUE_APP_CONFIG_UPLOAD_BACKEND = "https://xxx.xxx.xxx/sub.php" #替换你的域名
++ VUE_APP_SCRIPT_CONFIG = "https://github.com/tindy2013/subconverter/blob/master/README-cn.md#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"
++ VUE_APP_SCRIPT_BACKEND = "https://xxx.xxx.xxx/sub.php" #替换你的域名
 ```
 4.特别的，如果你使用的是[CareyWang/sub-web](https://github.com/CareyWang/sub-web)原版前端，而不是我的改版前端，你还需要在`/src/views/Subconverter.vue`中做一些修改：
 ```diff
+- <el-dialog
+-      :visible.sync="dialogUploadConfigVisible"
+-      :show-close="false"
+-      :close-on-click-modal="false"
+-      :close-on-press-escape="false"
+-      width="700px"
+-    >
+-      <div slot="title">
+-        Remote config upload
+-        <el-popover trigger="hover" placement="right" style="margin-left: 10px">
+-          <el-link type="primary" :href="sampleConfig" target="_blank" icon="el-icon-info">参考配置</el-link>
+-          <i class="el-icon-question" slot="reference"></i>
+-        </el-popover>
+-      </div>
+-      <el-form label-position="left">
+-        <el-form-item prop="uploadConfig">
+-          <el-input
+-            v-model="uploadConfig"
+-            type="textarea"
+-            :autosize="{ minRows: 15, maxRows: 15}"
+-            maxlength="5000"
+-            show-word-limit
+-          ></el-input>
+-        </el-form-item>
+-      </el-form>
+-      <div slot="footer" class="dialog-footer">
+-        <el-button @click="uploadConfig = ''; dialogUploadConfigVisible = false">取 消</el-button>
+-        <el-button
+-          type="primary"
+-          @click="confirmUploadConfig"
+-          :disabled="uploadConfig.length === 0"
+-       >确 定</el-button>
+-      </div>
+-    </el-dialog>
+
 - const configUploadBackend = process.env.VUE_APP_CONFIG_UPLOAD_BACKEND + '/config/upload'
 + const configUploadBackend = process.env.VUE_APP_CONFIG_UPLOAD_BACKEND
++ const configScriptBackend = process.env.VUE_APP_SCRIPT_BACKEND
++ const scriptConfigSample = process.env.VUE_APP_SCRIPT_CONFIG
 ```
 ```diff
 confirmUploadConfig() {
@@ -192,19 +231,4 @@ confirmUploadConfig() {
           this.loading = false;
         });
     },
-```
-另外，如果你觉得原来自定义远程配置`5000`字符串的限制不够，现在你可以直接加个`0`了：
-```diff
-<el-form label-position="left">
-        <el-form-item prop="uploadConfig">
-          <el-input
-            v-model="uploadConfig"
-            type="textarea"
-            :autosize="{ minRows: 15, maxRows: 15}"
--           maxlength="5000"
-+           maxlength="50000"
-            show-word-limit
-          ></el-input>
-        </el-form-item>
-      </el-form>
 ```
