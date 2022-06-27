@@ -152,6 +152,15 @@ EOD;
 ```
 4.特别的，如果你使用的是[CareyWang/sub-web](https://github.com/CareyWang/sub-web)原版前端，而不是我的改版前端，你还需要在`/src/views/Subconverter.vue`中做一些修改：
 ```diff
+<el-button
+       style="width: 120px"
+       type="danger"
+       @click="makeUrl"
+-      :disabled="form.sourceSubUrl.length === 0"
++      :disabled="form.sourceSubUrl.length === 0 || btnBoolean"
+       >生成订阅链接</el-button>
+```
+```diff
 - <el-dialog
 -      :visible.sync="dialogUploadConfigVisible"
 -      :show-close="false"
@@ -247,11 +256,23 @@ EOD;
 +        </el-tab-pane>
 +      </el-tabs>
 +    </el-dialog>
-
+```
+```diff
 - const configUploadBackend = process.env.VUE_APP_CONFIG_UPLOAD_BACKEND + '/config/upload'
 + const configUploadBackend = process.env.VUE_APP_CONFIG_UPLOAD_BACKEND
 + const configScriptBackend = process.env.VUE_APP_SCRIPT_BACKEND
 + const scriptConfigSample = process.env.VUE_APP_SCRIPT_CONFIG
+```
+```diff
+export default {
+  data() {
+    return {
+      backendVersion: "",
++     activeName: 'first',
+      // 是否为 PC 端
+      isPC: true,
++     btnBoolean: false,
+      options: {
 ```
 ```diff
 confirmUploadConfig() {
