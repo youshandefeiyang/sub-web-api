@@ -64,7 +64,7 @@ if (empty($userText)) {
     echo json_encode($arr, 320);
 }
 ```
-注意：以下文件的路径在：/绝对路径/profiles/下
+注意：以下文件的路径在：`/绝对路径/profiles/`下
 ```php
 <?php
 $inputcontent = $_POST['url'] ?? null;
@@ -375,5 +375,5 @@ confirmUploadConfig() {
 5.最后你需要在后端配置文件`pref.toml`中设置
 ```
 sort_flag = true
-sort_script = "path:/绝对路径/profiles/xxxx.js"
+sort_script = "path:`/绝对路径/profiles/xxxx.js`"
 ```
