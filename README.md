@@ -196,7 +196,7 @@ EOD;
 -       >确 定</el-button>
 -      </div>
 -    </el-dialog>
-+<el-dialog
++ <el-dialog
 +        :visible.sync="dialogUploadConfigVisible"
 +        :show-close="false"
 +        :close-on-click-modal="false"
@@ -375,5 +375,5 @@ confirmUploadConfig() {
 5.最后你需要在后端配置文件`pref.toml`中设置
 ```
 sort_flag = true
-sort_script = "path:/绝对路径/profiles/啥都行.js"
+sort_script = "path:/绝对路径/profiles/xxx.js"
 ```
