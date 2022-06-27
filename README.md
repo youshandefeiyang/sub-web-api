@@ -375,5 +375,5 @@ confirmUploadConfig() {
 5.最后你需要在后端配置文件`pref.toml`中设置
 ```
 sort_flag = true
-sort_script = "path:`/绝对路径/profiles/xxxx.js`"
+sort_script = "path:/绝对路径/profiles/啥都行.js"
 ```
