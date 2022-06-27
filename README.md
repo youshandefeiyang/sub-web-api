@@ -186,6 +186,67 @@ EOD;
 -       >确 定</el-button>
 -      </div>
 -    </el-dialog>
++<el-dialog
++        :visible.sync="dialogUploadConfigVisible"
++        :show-close="false"
++        :close-on-click-modal="false"
++        :close-on-press-escape="false"
++        width="80%"
++    >
++      <el-tabs v-model="activeName" type="card">
++        <el-tab-pane label="远程配置上传" name="first">
++          <el-link type="danger" :href="sampleConfig" style="margin-bottom: 15px" target="_blank" icon="el-icon-info">
++            参考配置
++          </el-link>
++          <el-form label-position="left">
++            <el-form-item prop="uploadConfig">
++              <el-input
++                  v-model="uploadConfig"
++                  type="textarea"
++                  :autosize="{ minRows: 15, maxRows: 15}"
++                  maxlength="50000"
++                  show-word-limit
++              ></el-input>
++            </el-form-item>
++          </el-form>
++          <div style="float: right">
++            <el-button type="primary" @click="uploadConfig = ''; dialogUploadConfigVisible = false">取 消</el-button>
++            <el-button
++                type="primary"
++                @click="confirmUploadConfig"
++                :disabled="uploadConfig.length === 0"
++            >确 定
++            </el-button>
++          </div>
++        </el-tab-pane>
++        <el-tab-pane label="JS排序节点" name="second">
++          <el-link type="danger" :href="scriptConfig" style="margin-bottom: 15px" target="_blank" icon="el-icon-info">
++            使用方法
++          </el-link>
++          <el-form label-position="left">
++            <el-form-item prop="uploadScript">
++              <el-input
++                  v-model="uploadScript"
++                 placeholder="使用JavaScript对节点进行自定义排序，本功能后端接口自动模版化，JS无需以挤在一行加换行符的形式输入，注意：如果你还需要自定义上传远程配置，此操作务必 +                 在其之后进行！"
++                  type="textarea"
++                  :autosize="{ minRows: 15, maxRows: 15}"
++                  maxlength="50000"
++                  show-word-limit
++              ></el-input>
++            </el-form-item>
++          </el-form>
++          <div style="float: right">
++            <el-button type="primary" @click="uploadScript = ''; dialogUploadConfigVisible = false">取 消</el-button>
++            <el-button
++                type="primary"
++                @click="confirmUploadScript"
++                :disabled="uploadScript.length === 0"
++            >确 定
++            </el-button>
++          </div>
++        </el-tab-pane>
++      </el-tabs>
++    </el-dialog>
 
 - const configUploadBackend = process.env.VUE_APP_CONFIG_UPLOAD_BACKEND + '/config/upload'
 + const configUploadBackend = process.env.VUE_APP_CONFIG_UPLOAD_BACKEND
