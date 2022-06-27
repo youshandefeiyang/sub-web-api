@@ -356,9 +356,10 @@ confirmUploadConfig() {
 +              this.$message.success(
 +                  "自定义JS上传成功，订阅链接已复制到剪贴板"
 +              );
++              this.customSubUrl = res.data.data;
 +              this.dialogUploadConfigVisible = false;
 +              this.btnBoolean=true;
-+              this.customSubUrl = res.data.data;
++              this.$copyText(res.data.data);
 +            } else {
 +              this.$message.error("自定义JS上传失败: " + res.data.msg);
 +            }
@@ -369,7 +370,6 @@ confirmUploadConfig() {
 +          .finally(() => {
 +            this.loading = false;
 +          })
-+          this.$copyText(this.customSubUrl);
 +    },
 ```
 5.最后你需要在后端配置文件`pref.toml`中设置
