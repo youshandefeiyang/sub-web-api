@@ -64,8 +64,8 @@ if (empty($userText)) {
     echo json_encode($arr, 320);
 }
 ```
+注意：以下文件的路径在：/绝对路径/profiles/下
 ```php
-注意：该接口的路径为：/绝对路径/profiles/下
 <?php
 $inputcontent = $_POST['url'] ?? null;
 if (empty($inputcontent)) {
@@ -372,7 +372,7 @@ confirmUploadConfig() {
 +          this.$copyText(this.customSubUrl);
 +    },
 ```
-5.最后你需要在后端配置文件中设置
+5.最后你需要在后端配置文件`pref.toml`中设置
 ```
 sort_flag = true
 sort_script = "path:/绝对路径/profiles/xxxx.js"
