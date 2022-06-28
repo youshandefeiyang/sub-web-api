@@ -1,4 +1,6 @@
 <?php
+
+namespace subconverter;
 $inputcontent = $_POST['url'] ?? null;
 if (empty($inputcontent)) {
     $arr = array('msg' => "failed", 'data' => "empty value");
@@ -63,12 +65,17 @@ EOD;
         }
     }
 
-    $md5content = md5($diyscript);
-    $jspath = '/' . mk_dir() . '/' . $md5content . '.' . 'js';
+    $md5jscontent = md5($diyscript);
+    $jspath = '/' . mk_dir() . '/' . $md5jscontent . '.' . 'js';
     file_put_contents(".$jspath", $diyscript);
-    $inipath = '/' . mk_inidir() . '/' . $md5content . '.' . 'ini';
+    $md5inicontent = md5($str);
+    $inipath = '/' . mk_inidir() . '/' . $md5inicontent . '.' . 'ini';
     file_put_contents(".$inipath", $str);
-    $md5encode = urlencode(md5($diyscript));
+    $md5encode = urlencode(md5($str));
+    require __DIR__ . '/config/connect.php';
+    $sql = 'INSERT `mdfive` SET `inilist` = ?,`jslist`=?';
+    $stmt = $db->prepare($sql);
+    $stmt->execute([$md5inicontent, $md5jscontent]);
     $arr = array('code' => 0, 'msg' => "success", 'data' => "https://subapi.d1.mk/redirect.php?token=$md5encode");
     echo json_encode($arr, 320);
 }
