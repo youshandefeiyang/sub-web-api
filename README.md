@@ -64,7 +64,7 @@ if (empty($userText)) {
     echo json_encode($arr, 320);
 }
 ```
-注意：以下文件的路径在：`/绝对路径/profiles/`下
+注意：以下两个文件的路径在：`/绝对路径/profiles/`下，并且你需要额外配置两个域名，用来接收参数和重定向
 ```php
 <?php
 $inputcontent = $_POST['url'] ?? null;
@@ -142,6 +142,22 @@ EOD;
     file_put_contents(".$inipath", $str);
     $arr = array('code' => 0, 'msg' => "success", 'data' => "https://api.d1.mk/getprofile?name=profiles$inipath&token=subconverter");
     echo json_encode($arr, 320);
+}
+```
+```php
+<?php
+$token = urldecode($_GET['token']) ?? null;
+if (empty($token)) {
+    $arr = array('msg' => "failed", 'data' => "empty value");
+    echo json_encode($arr, 320);
+    exit();
+} else {
+    $reg = "/profiles\/(.)+.js/i";
+    $replacement = "profiles/script/$token.js";
+    $pref = "../pref.toml";
+    $newpref = preg_replace($reg, $replacement, file_get_contents($pref));
+    file_put_contents($pref, $newpref);
+    header("Location: https://api.d1.mk/getprofile?name=profiles/subconverter/$token.ini&token=subconverter");
 }
 ```
 3.然后你需要在主目录`.env`中修改默认远程配置后端：
