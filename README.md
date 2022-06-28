@@ -44,7 +44,7 @@ sub.php、api.php、rediredct.php、config目录均需放在/绝对路径/profil
 否则无法写入文件，config目录中的数据库文件手动导入或自行使用可视化工具（比如phpmyadmin或navicat等工具）导入!
 
 ```
-3.然后你需要在主目录`.env`中修改默认远程配置后端：
+3.然后你需要在前端主目录`.env`中修改远程配置后端：
 ```diff
 - VUE_APP_CONFIG_UPLOAD_BACKEND = "https://subapi.v1.mk/sub.php"
 + VUE_APP_CONFIG_UPLOAD_BACKEND = "https://xxx.xxx.xxx/sub.php" #替换你的域名
