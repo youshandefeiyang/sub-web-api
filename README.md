@@ -10,7 +10,7 @@ server
     server_name xxx.xxx.xxx; #替换你的域名
     charset utf-8; #防止浏览器显示中文乱码
     index index.php index.html index.htm default.php default.htm default.html;
-    root /绝对路径/profiles;
+    root /绝对路径/subconverter/profiles;
     add_header 'Access-Control-Allow-Origin' "*"; #解除跨域，很重要
     add_header 'Access-Control-Allow-Credentials' "true"; #允许跨域使用cookies
     if ($server_port !~ 443){
@@ -40,7 +40,7 @@ server
 ```
 2.接口部分说明：
 ```
-sub.php、api.php、rediredct.php、config目录均需放在/绝对路径/profiles下，并对subconverter全局设置读写权限（建议直接777）
+sub.php、api.php、rediredct.php、config目录均需放在/绝对路径/subconverter/profiles下，并对subconverter目录全局设置读写权限（建议直接777）
 否则无法写入文件，config目录中的数据库文件手动导入或自行使用可视化工具（比如phpmyadmin或navicat等工具）导入!
 
 ```
@@ -275,5 +275,5 @@ confirmUploadConfig() {
 5.最后你需要在后端配置文件`pref.toml`中设置
 ```
 sort_flag = true
-sort_script = "path:/绝对路径/profiles/xxx.js"
+sort_script = "path:/绝对路径/subconverter/profiles/script/xxx.js"
 ```
