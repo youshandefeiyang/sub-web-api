@@ -24,9 +24,13 @@ if (empty($inputcontent)) {
     $scv = urldecode($_POST['scv']);
     $fdn = urldecode($_POST['fdn']);
     $newname = urldecode($_POST['newname']);
-    $str = <<<EOD
+    $panduan = explode("surge", $target);
+    if (count($panduan) > 1) {
+        $num = substr($target, -1);
+        $str = <<<EOD
 [Profile]
-target=$target
+target=surge
+surge_ver=$num
 url=$url
 config=$config
 exclude=$exclude
@@ -41,8 +45,27 @@ tfo=$tfo
 expand=$expand
 scv=$scv
 fdn=$fdn
+EOD;
+    } else {
+        $str = <<<EOD
+[Profile]
+target=$target
+url=$url
+config=$config
+exclude=$exclude
+include=$include
+tls13=$tls13
+rename=$rename
+emoji=$emoji
+list=$list
+udp=$udp
+tfo=$tfo
+expand=$expand
+scv=$scv
+fdn=$fdn
 newname=$newname
 EOD;
+    }
     function mk_dir()
     {
         $dir = 'script';
