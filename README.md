@@ -81,7 +81,7 @@ if (empty($inputcontent)) {
     $include = urldecode($_POST['include']);
     $tls13 = urldecode($_POST['tls13']);
     $rename = urldecode($_POST['rename']);
-    $strict = urldecode($_POST['strict']);
+    $surgeForce = urldecode($_POST['surgeForce']);
     $emoji = urldecode($_POST['emoji']);
     $list = urldecode($_POST['list']);
     $udp = urldecode($_POST['udp']);
@@ -99,7 +99,7 @@ exclude=$exclude
 include=$include
 tls13=$tls13
 rename=$rename
-strict=$strict
+strict=$surgeForce
 emoji=$emoji
 list=$list
 udp=$udp
