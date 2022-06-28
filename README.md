@@ -40,7 +40,7 @@ server
 ```
 2.接口部分说明：
 ```
-sub.php、api.php、rediredct.php、config目录均需放在/绝对路径/profiles下，并对subconverter全局设置读写权限（建议直接777），否则无法写入文件，config目录中的数据库文件手动导入或自行使用可视化工具（比如phpmyadmin或navicat等工具）导入，rediredct.php最后重定向的域名是subconverter的域名！
+sub.php、api.php、rediredct.php、config目录均需放在/绝对路径/profiles下，并对subconverter全局设置读写权限（建议直接777）<br>，否则无法写入文件，config目录中的数据库文件手动导入或自行使用可视化工具（比如phpmyadmin或navicat等工具）导入，rediredct.php最后重定向的域名是subconverter的域名！
 
 ```
 3.然后你需要在主目录`.env`中修改默认远程配置后端：
