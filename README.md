@@ -10,7 +10,7 @@ server
     server_name xxx.xxx.xxx; #替换你的域名
     charset utf-8; #防止浏览器显示中文乱码
     index index.php index.html index.htm default.php default.htm default.html;
-    root /www/wwwroot/subapi.v1.mk;
+    root /绝对路径/profiles;
     add_header 'Access-Control-Allow-Origin' "*"; #解除跨域，很重要
     add_header 'Access-Control-Allow-Credentials' "true"; #允许跨域使用cookies
     if ($server_port !~ 443){
