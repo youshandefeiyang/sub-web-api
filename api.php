@@ -76,6 +76,6 @@ EOD;
     $sql = 'INSERT `mdfive` SET `inilist` = ?,`jslist`=?';
     $stmt = $db->prepare($sql);
     $stmt->execute([$md5inicontent, $md5jscontent]);
-    $arr = array('code' => 0, 'msg' => "success", 'data' => "https://subapi.d1.mk/redirect.php?token=$md5encode");
+    $arr = array('code' => 0, 'msg' => "success", 'data' => "https://subapi.v1.mk/redirect.php?token=$md5encode");
     echo json_encode($arr, 320);
 }

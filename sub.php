@@ -1,4 +1,6 @@
 <?php
+
+namespace subconverter;
 header('Content-Type: application/json');
 $userText = urldecode($_POST['config']) ?? null;
 if (empty($userText)) {
@@ -8,7 +10,7 @@ if (empty($userText)) {
 } else {
     function mk_dir()
     {
-        $dir = 'subconverter/' . date('Y/m/md', time());
+        $dir = 'remoteconfig/' . date('Y/m/md', time());
         if (is_dir('./' . $dir)) {
             return $dir;
         } else {
@@ -16,6 +18,7 @@ if (empty($userText)) {
             return $dir;
         }
     }
+
     $path = '/' . mk_dir() . '/' . md5($userText) . '.' . 'ini';
     file_put_contents(".$path", $userText);
     $arr = array('code' => 0, 'msg' => "success", 'data' => "https://subapi.v1.mk$path");
