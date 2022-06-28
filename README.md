@@ -131,16 +131,13 @@ EOD;
         }
     }
 
-    $jspath = '/' . mk_dir() . '/' . md5($diyscript) . '.' . 'js';
+    $md5content = md5($diyscript);
+    $jspath = '/' . mk_dir() . '/' . $md5content . '.' . 'js';
     file_put_contents(".$jspath", $diyscript);
-    $reg = "/profiles\/(.)+.js/i";
-    $replacement = "profiles" . "$jspath";
-    $pref = "../pref.toml";
-    $newpref = preg_replace($reg, $replacement, file_get_contents($pref));
-    file_put_contents($pref, $newpref);
-    $inipath = '/' . mk_inidir() . '/' . md5($str) . '.' . 'ini';
+    $inipath = '/' . mk_inidir() . '/' . $md5content . '.' . 'ini';
     file_put_contents(".$inipath", $str);
-    $arr = array('code' => 0, 'msg' => "success", 'data' => "https://api.d1.mk/getprofile?name=profiles$inipath&token=subconverter");
+    $md5encode = urlencode(md5($diyscript));
+    $arr = array('code' => 0, 'msg' => "success", 'data' => "https://subapi.d1.mk/redirect.php?token=$md5encode");
     echo json_encode($arr, 320);
 }
 ```
