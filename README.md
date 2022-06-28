@@ -47,8 +47,8 @@ sub.php、api.php、rediredct.php、config目录均需放在/绝对路径/subcon
 3.然后你需要在前端主目录`.env`中修改远程配置后端：
 ```diff
 - VUE_APP_CONFIG_UPLOAD_BACKEND = "https://subapi.v1.mk/sub.php"
+- VUE_APP_SCRIPT_BACKEND = "https://subapi.v1.mk/api.php"
 + VUE_APP_CONFIG_UPLOAD_BACKEND = "https://xxx.xxx.xxx/sub.php" #替换你的域名
-+ VUE_APP_SCRIPT_CONFIG = "https://github.com/tindy2013/subconverter/blob/master/README-cn.md#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"
 + VUE_APP_SCRIPT_BACKEND = "https://xxx.xxx.xxx/api.php" #替换你的域名
 ```
 4.特别的，如果你使用的是[CareyWang/sub-web](https://github.com/CareyWang/sub-web)原版前端，而不是我的改版前端，你还需要在`/src/views/Subconverter.vue`中做一些修改：
