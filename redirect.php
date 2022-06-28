@@ -12,7 +12,7 @@ if (empty($token)) {
     $stmt = $db->prepare($sql);
     $inilist = $token;
     $stmt->execute([$inilist]);
-    $jsname = $stmt->fetch()['jslist'];
+    $jsname = end($stmt->fetchAll())['jslist'];
     $reg = "/profiles\/(.)+.js/i";
     $replacement = "profiles/script/$jsname.js";
     $pref = "../pref.toml";
