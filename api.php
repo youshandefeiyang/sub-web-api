@@ -8,6 +8,7 @@ if (empty($inputcontent)) {
     exit();
 } else {
     $diyscript = urldecode($_POST['sortscript']);
+    $filterscript = urldecode($_POST['filterscript']);
     $target = urldecode($_POST['target']);
     $url = urldecode($_POST['url']);
     $config = urldecode($_POST['config']);
@@ -92,17 +93,31 @@ EOD;
         }
     }
 
+    function mk_filterdir()
+    {
+        $filterdir = 'filter';
+        if (is_dir('./' . $filterdir)) {
+            return $filterdir;
+        } else {
+            mkdir('./' . $filterdir, 0777, true);
+            return $filterdir;
+        }
+    }
+
     $md5jscontent = md5($diyscript);
     $jspath = '/' . mk_dir() . '/' . $md5jscontent . '.' . 'js';
     file_put_contents(".$jspath", $diyscript);
+    $md5filtercontent = md5($filterscript);
+    $filterpath = '/' . mk_filterdir() . '/' . $md5filtercontent . '.' . 'js';
+    file_put_contents(".$filterpath", $filterscript);
     $md5inicontent = md5($str);
     $inipath = '/' . mk_inidir() . '/' . $md5inicontent . '.' . 'ini';
     file_put_contents(".$inipath", $str);
-    $md5encode = urlencode(md5($str));
     require __DIR__ . '/config/connect.php';
-    $sql = 'INSERT `mdfive` SET `inilist` = ?,`jslist`=?';
+    $sql = 'INSERT `mdfive` SET `inilist` = ?,`jslist` = ?,`filterlist` = ?';
     $stmt = $db->prepare($sql);
-    $stmt->execute([$md5inicontent, $md5jscontent]);
+    $stmt->execute([$md5inicontent, $md5jscontent, $md5filtercontent]);
+    $md5encode = urlencode(md5($str));
     $arr = array('code' => 0, 'msg' => "success", 'data' => "https://subapi.v1.mk/redirect.php?token=$md5encode");
     echo json_encode($arr, 320);
 }
