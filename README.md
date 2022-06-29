@@ -1,5 +1,5 @@
 # sub-web聚合API
-[本项目](https://github.com/youshandefeiyang/sub-web-config-backend)作为[youshandefeiyang/sub-web-modify](https://github.com/youshandefeiyang/sub-web-modify)的扩展API，支持远程配置托管、JS排序/筛选节点，后端自动模版化，以下是配置教程：<br/>
+本项目作为[youshandefeiyang/sub-web-modify](https://github.com/youshandefeiyang/sub-web-modify)的扩展API，支持远程配置托管、JS排序/筛选节点，后端自动模版化，以下是配置教程：<br/>
 ## 使用方法【以nginx为例】：
 1.需要安装`nginx`并正确配置，以下为`nginx server块`部分配置，可以参考一下（这块建议小白使用宝塔面板等自动化运维工具）！
 ```shell
