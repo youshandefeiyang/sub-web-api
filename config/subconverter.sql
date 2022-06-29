@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2022-06-28 19:27:53
+-- 生成日期： 2022-06-29 19:44:54
 -- 服务器版本： 5.6.50-log
 -- PHP 版本： 7.4.22
 
@@ -31,15 +31,9 @@ SET time_zone = "+00:00";
 CREATE TABLE `mdfive` (
   `id` int(11) NOT NULL,
   `inilist` varchar(100) NOT NULL,
-  `jslist` varchar(100) NOT NULL
+  `jslist` varchar(100) NOT NULL,
+  `filterlist` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- 转存表中的数据 `mdfive`
---
-
-INSERT INTO `mdfive` (`id`, `inilist`, `jslist`) VALUES
-(2, '57b6144d0baabb2f12e93061a1ebd54b', 'c542928456987944e31a566137013e11');
 
 --
 -- 转储表的索引
@@ -59,7 +53,7 @@ ALTER TABLE `mdfive`
 -- 使用表AUTO_INCREMENT `mdfive`
 --
 ALTER TABLE `mdfive`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
