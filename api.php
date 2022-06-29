@@ -23,6 +23,8 @@ if (empty($inputcontent)) {
     $expand = urldecode($_POST['expand']);
     $scv = urldecode($_POST['scv']);
     $fdn = urldecode($_POST['fdn']);
+    $sdoh = urldecode($_POST['sdoh']);
+    $cdoh = urldecode($_POST['cdoh']);
     $newname = urldecode($_POST['newname']);
     $panduan = explode("surge", $target);
     if (count($panduan) > 1) {
@@ -45,6 +47,7 @@ tfo=$tfo
 expand=$expand
 scv=$scv
 fdn=$fdn
+surge.doh=$sdoh
 EOD;
     } else {
         $str = <<<EOD
@@ -63,6 +66,7 @@ tfo=$tfo
 expand=$expand
 scv=$scv
 fdn=$fdn
+clash.doh=$cdoh
 newname=$newname
 EOD;
     }
