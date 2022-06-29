@@ -15,12 +15,12 @@ if (empty($token)) {
     $arr = end($stmt->fetchAll());
     $jsname = $arr['jslist'];
     $filtername = $arr['filterlist'];
-    $jsreg = "/script\/(.)+.js/i";
+    $jsreg = "/script\/(.)*.js/i";
     $replacement = "script/$jsname.js";
     $pref = "../pref.toml";
     $newpref = preg_replace($jsreg, $replacement, file_get_contents($pref));
     file_put_contents($pref, $newpref);
-    $filterreg = "/filter\/(.)+.js/i";
+    $filterreg = "/filter\/(.)*.js/i";
     $freplace = "filter/$filtername.js";
     $secondpref = preg_replace($filterreg, $freplace, file_get_contents($pref));
     file_put_contents($pref, $secondpref);
