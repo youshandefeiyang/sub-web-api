@@ -54,7 +54,7 @@ sub.php、api.php、rediredct.php、config目录均需放在/绝对路径/subcon
 4.最后你需要在后端配置文件`pref.toml`中设置
 ```
 enable_filter = true
-filter_script = "绝对路径/subconverter/profiles/filter/filter.js"
+filter_script = "path:/绝对路径/subconverter/profiles/filter/filter.js"
 sort_flag = true
 sort_script = "path:/绝对路径/subconverter/profiles/script/sort.js"
 ```
