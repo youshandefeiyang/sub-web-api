@@ -1,6 +1,10 @@
 <?php
 
 namespace subconverter;
+require __DIR__ . '/config/common.php';
+
+use config\common;
+
 $inputcontent = $_POST['url'] ?? null;
 if (empty($inputcontent)) {
     $arr = array('msg' => "failed", 'data' => "empty value");
@@ -71,47 +75,15 @@ clash.doh=$cdoh
 newname=$newname
 EOD;
     }
-    function mk_dir()
-    {
-        $dir = 'script';
-        if (is_dir('./' . $dir)) {
-            return $dir;
-        } else {
-            mkdir('./' . $dir, 0777, true);
-            return $dir;
-        }
-    }
-
-    function mk_inidir()
-    {
-        $inidir = 'subconverter';
-        if (is_dir('./' . $inidir)) {
-            return $inidir;
-        } else {
-            mkdir('./' . $inidir, 0777, true);
-            return $inidir;
-        }
-    }
-
-    function mk_filterdir()
-    {
-        $filterdir = 'filter';
-        if (is_dir('./' . $filterdir)) {
-            return $filterdir;
-        } else {
-            mkdir('./' . $filterdir, 0777, true);
-            return $filterdir;
-        }
-    }
-
+    $scriptdir = new Commonfunction;
     $md5jscontent = md5($diyscript);
-    $jspath = '/' . mk_dir() . '/' . $md5jscontent . '.' . 'js';
+    $jspath = '/' . $scriptdir->mk_dir('script') . '/' . $md5jscontent . '.' . 'js';
     file_put_contents(".$jspath", $diyscript);
     $md5filtercontent = md5($filterscript);
-    $filterpath = '/' . mk_filterdir() . '/' . $md5filtercontent . '.' . 'js';
+    $filterpath = '/' . $scriptdir->mk_dir('filter') . '/' . $md5filtercontent . '.' . 'js';
     file_put_contents(".$filterpath", $filterscript);
     $md5inicontent = md5($str);
-    $inipath = '/' . mk_inidir() . '/' . $md5inicontent . '.' . 'ini';
+    $inipath = '/' . $scriptdir->mk_dir('subconverter') . '/' . $md5inicontent . '.' . 'ini';
     file_put_contents(".$inipath", $str);
     require __DIR__ . '/config/connect.php';
     $sql = 'INSERT `mdfive` SET `inilist` = ?,`jslist` = ?,`filterlist` = ?';
