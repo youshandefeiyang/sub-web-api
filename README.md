@@ -44,16 +44,16 @@ sub.php、api.php、rediredct.php、config目录均需放在/绝对路径/subcon
 否则无法写入文件，config目录中的数据库文件手动导入或自行使用可视化工具（比如phpmyadmin或navicat等工具）导入!
 ```
 ```diff
-你需要在sub.php中修改：
+你需要在 sub.php 中修改：
 - $arr = array('code' => 0, 'msg' => "success", 'data' => "https://subapi.v1.mk$path");
 + $arr = array('code' => 0, 'msg' => "success", 'data' => "https://你的域名$path");
-在`api.php`中修改：
+在 api.php 中修改：
 - $arr = array('code' => 0, 'msg' => "success", 'data' => "https://subapi.v1.mk/redirect.php?token=$md5encode");
 + $arr = array('code' => 0, 'msg' => "success", 'data' => "https://你的域名/redirect.php?token=$md5encode");
-在`redirect.php`中修改：
+在 redirect.php 中修改：
 - header("Location: https://api.d1.mk/getprofile?name=profiles/subconverter/$token.ini&token=subconverter");
 + header("Location: https://你的subconverter后端域名/getprofile?name=profiles/subconverter/$token.ini&token=subconverter");
-在config/database.php中配置你的数据库连接信息
+在 config/database.php 中配置你的数据库连接信息
 ```
 3.然后你需要在前端主目录`.env`中修改远程配置后端：
 ```diff
