@@ -2,6 +2,7 @@
 
 namespace subconverter;
 require __DIR__ . '/config/common.php';
+require __DIR__ . '/config/connect.php';
 
 use config\common;
 
@@ -85,7 +86,6 @@ EOD;
     $md5inicontent = md5($str);
     $inipath = '/' . $scriptdir->mk_dir('subconverter') . '/' . $md5inicontent . '.' . 'ini';
     file_put_contents(".$inipath", $str);
-    require __DIR__ . '/config/connect.php';
     $sql = 'INSERT `mdfive` SET `inilist` = ?,`jslist` = ?,`filterlist` = ?';
     $stmt = $db->prepare($sql);
     $stmt->execute([$md5inicontent, $md5jscontent, $md5filtercontent]);
