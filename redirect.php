@@ -1,12 +1,13 @@
 <?php
 
 namespace subconverter;
-$token = urldecode($_GET['token']) ?? null;
-if (empty($token)) {
+$param = $_GET['token'] ?? null;
+if (empty($param)) {
     $arr = array('msg' => "failed", 'data' => "empty value");
     echo json_encode($arr, 320);
     exit();
 } else {
+    $token = urldecode($_GET['token']);
     require __DIR__ . '/config/connect.php';
     $sql = 'SELECT `jslist`,`filterlist` FROM `mdfive` WHERE `inilist` = ?';
     $stmt = $db->prepare($sql);
