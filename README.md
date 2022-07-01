@@ -10,7 +10,7 @@ server
     server_name xxx.xxx.xxx; #替换你的域名
     charset utf-8; #防止浏览器显示中文乱码
     index index.php index.html index.htm default.php default.htm default.html;
-    root /绝对路径/subconverter/profiles;
+    root /subconverter绝对路径/subconverter/profiles;
     add_header 'Access-Control-Allow-Origin' "*"; #解除跨域，很重要
     add_header 'Access-Control-Allow-Credentials' "true"; #允许跨域使用cookies
     if ($server_port !~ 443){
@@ -65,7 +65,7 @@ sub.php、api.php、rediredct.php、config目录均需放在/绝对路径/subcon
 4.最后你需要在后端配置文件`pref.toml`中设置
 ```
 enable_filter = true
-filter_script = "path:/绝对路径/subconverter/profiles/filter/filter.js"
+filter_script = "path:/subconverter绝对路径/subconverter/profiles/filter/filter.js"
 sort_flag = true
-sort_script = "path:/绝对路径/subconverter/profiles/script/sort.js"
+sort_script = "path:/subconverter绝对路径/subconverter/profiles/script/sort.js"
 ```
