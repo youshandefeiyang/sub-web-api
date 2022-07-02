@@ -10,7 +10,7 @@ server
     server_name xxx.xxx.xxx; #替换你sub-web-api的域名
     charset utf-8; #防止浏览器显示中文乱码
     index index.php index.html index.htm default.php default.htm default.html;
-    root /subconverter绝对路径/subconverter/profiles;
+    root /你的subconverter后端绝对路径/subconverter/profiles;
     add_header 'Access-Control-Allow-Origin' "*"; #解除跨域，很重要
     add_header 'Access-Control-Allow-Credentials' "true"; #允许跨域使用cookies
     if ($server_port !~ 443){
