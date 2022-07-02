@@ -60,7 +60,7 @@ sub.php、api.php、rediredct.php、config目录均需放在/绝对路径/subcon
 - VUE_APP_CONFIG_UPLOAD_BACKEND = "https://subapi.v1.mk"
 + VUE_APP_CONFIG_UPLOAD_BACKEND = "https://xxx.xxx.xxx" #替换你sub-web-api的域名
 ```
-4.最后你需要在`subconverter`配置文件`pref.toml`中设置
+4.最后你需要在`subconverter`主目录配置文件`pref.toml`中设置
 ```
 enable_filter = true
 filter_script = "path:profiles/filter/filter.js"
