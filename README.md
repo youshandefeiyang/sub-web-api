@@ -7,7 +7,7 @@ server
 {
     listen 80;
     listen 443 ssl http2; #前端如果开启了https，后端也必须开
-    server_name xxx.xxx.xxx; #替换你的域名
+    server_name xxx.xxx.xxx; #替换你sub-web-api的域名
     charset utf-8; #防止浏览器显示中文乱码
     index index.php index.html index.htm default.php default.htm default.html;
     root /subconverter绝对路径/subconverter/profiles;
@@ -46,10 +46,10 @@ sub.php、api.php、rediredct.php、config目录均需放在/绝对路径/subcon
 ```diff
 你需要在 sub.php 中修改：
 - $arr = array('code' => 0, 'msg' => "success", 'data' => "https://subapi.v1.mk$path");
-+ $arr = array('code' => 0, 'msg' => "success", 'data' => "https://你的域名$path");
++ $arr = array('code' => 0, 'msg' => "success", 'data' => "https://你的sub-web-api域名$path");
 在 api.php 中修改：
 - $arr = array('code' => 0, 'msg' => "success", 'data' => "https://subapi.v1.mk/redirect.php?token=$md5encode");
-+ $arr = array('code' => 0, 'msg' => "success", 'data' => "https://你的域名/redirect.php?token=$md5encode");
++ $arr = array('code' => 0, 'msg' => "success", 'data' => "https://你的sub-web-api域名/redirect.php?token=$md5encode");
 在 redirect.php 中修改：
 - header("Location: https://api.d1.mk/getprofile?name=profiles/subconverter/$token.ini&token=subconverter");
 + header("Location: https://你的subconverter后端域名/getprofile?name=profiles/subconverter/$token.ini&token=subconverter");
@@ -57,10 +57,8 @@ sub.php、api.php、rediredct.php、config目录均需放在/绝对路径/subcon
 ```
 3.然后你需要在前端主目录`.env`中修改远程配置后端：
 ```diff
-- VUE_APP_CONFIG_UPLOAD_BACKEND = "https://subapi.v1.mk/sub.php"
-- VUE_APP_SCRIPT_BACKEND = "https://subapi.v1.mk/api.php"
-+ VUE_APP_CONFIG_UPLOAD_BACKEND = "https://xxx.xxx.xxx/sub.php" #替换你的域名
-+ VUE_APP_SCRIPT_BACKEND = "https://xxx.xxx.xxx/api.php" #替换你的域名
+- VUE_APP_CONFIG_UPLOAD_BACKEND = "https://subapi.v1.mk"
++ VUE_APP_CONFIG_UPLOAD_BACKEND = "https://xxx.xxx.xxx" #替换你sub-web-api的域名
 ```
 4.最后你需要在后端配置文件`pref.toml`中设置
 ```
