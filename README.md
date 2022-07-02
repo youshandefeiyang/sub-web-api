@@ -55,12 +55,12 @@ sub.php、api.php、rediredct.php、config目录均需放在/绝对路径/subcon
 + header("Location: https://你的subconverter后端域名/getprofile?name=profiles/subconverter/$token.ini&token=subconverter");
 在 config/database.php 中配置你的数据库连接信息
 ```
-3.然后你需要在前端主目录`.env`中修改远程配置后端：
+3.然后你需要在`sub-web-modify`主目录`.env`中修改远程配置后端：
 ```diff
 - VUE_APP_CONFIG_UPLOAD_BACKEND = "https://subapi.v1.mk"
 + VUE_APP_CONFIG_UPLOAD_BACKEND = "https://xxx.xxx.xxx" #替换你sub-web-api的域名
 ```
-4.最后你需要在后端配置文件`pref.toml`中设置
+4.最后你需要在`subconverter`配置文件`pref.toml`中设置
 ```
 enable_filter = true
 filter_script = "path:profiles/filter/filter.js"
